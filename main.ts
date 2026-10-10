@@ -1,3 +1,12 @@
+function make_level () {
+    if (0 == level) {
+        tiles.setCurrentTilemap(tilemap`level1`)
+    } else if (1 == level) {
+        tiles.setCurrentTilemap(tilemap`level2`)
+    } else {
+    	
+    }
+}
 function make_hiro () {
     hiro = sprites.create(img`
         . . . . . . . . . . . . . . . . 
@@ -20,9 +29,15 @@ function make_hiro () {
     controller.moveSprite(hiro)
     scene.cameraFollowSprite(hiro)
 }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`doorOpenNorth`, function (sprite, location) {
+    level += 1
+    make_level()
+})
 let hiro: Sprite = null
-tiles.setCurrentTilemap(tilemap`level1`)
+let level = 0
+level = 0
 make_hiro()
+make_level()
 game.onUpdateInterval(500, function () {
     if (hiro.vx > 0) {
         animation.runImageAnimation(
@@ -344,60 +359,9 @@ game.onUpdateInterval(500, function () {
             . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
             . . . . . f f f f f f . . . . . 
             . . . . . f f . . f f . . . . . 
-            `,img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . f f f f . . . . . . 
-            . . . . f f f 2 2 f f f . . . . 
-            . . . f f f 2 2 2 2 f f f . . . 
-            . . f f f e e e e e e f f f . . 
-            . . f f e 2 2 2 2 2 2 e e f . . 
-            . f f e 2 f f f f f f 2 e f f . 
-            . f f f f f e e e e f f f f f . 
-            . . f e f b f 4 4 f b f e f . . 
-            . . f e 4 1 f d d f 1 4 e f . . 
-            . . . f e 4 d d d d 4 e f e . . 
-            . . f e f 2 2 2 2 e d d 4 e . . 
-            . . e 4 f 2 2 2 2 e d d e . . . 
-            . . . . f 4 4 5 5 f e e . . . . 
-            . . . . f f f f f f f . . . . . 
-            . . . . f f f . . . . . . . . . 
-            `,img`
-            . . . . . . f f f f . . . . . . 
-            . . . . f f f 2 2 f f f . . . . 
-            . . . f f f 2 2 2 2 f f f . . . 
-            . . f f f e e e e e e f f f . . 
-            . . f f e 2 2 2 2 2 2 e e f . . 
-            . . f e 2 f f f f f f 2 e f . . 
-            . . f f f f e e e e f f f f . . 
-            . f f e f b f 4 4 f b f e f f . 
-            . f e e 4 1 f d d f 1 4 e e f . 
-            . . f e e d d d d d d e e f . . 
-            . . . f e e 4 4 4 4 e e f . . . 
-            . . e 4 f 2 2 2 2 2 2 f 4 e . . 
-            . . 4 d f 2 2 2 2 2 2 f d 4 . . 
-            . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
-            . . . . . f f f f f f . . . . . 
-            . . . . . f f . . f f . . . . . 
-            `,img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . f f f f . . . . . . 
-            . . . . f f f 2 2 f f f . . . . 
-            . . . f f f 2 2 2 2 f f f . . . 
-            . . f f f e e e e e e f f f . . 
-            . . f e e 2 2 2 2 2 2 e f f . . 
-            . f f e 2 f f f f f f 2 e f f . 
-            . f f f f f e e e e f f f f f . 
-            . . f e f b f 4 4 f b f e f . . 
-            . . f e 4 1 f d d f 1 4 e f . . 
-            . . e f e 4 d d d d 4 e f . . . 
-            . . e 4 d d e 2 2 2 2 f e f . . 
-            . . . e d d e 2 2 2 2 f 4 e . . 
-            . . . . e e f 5 5 4 4 f . . . . 
-            . . . . . f f f f f f f . . . . 
-            . . . . . . . . . f f f . . . . 
             `],
         200,
-        false
+        true
         )
     }
 })
